@@ -4,7 +4,8 @@ NAME = philo
 SRC_FOLDER = src
 OBJ_FOLDER = obj
 
-SRC =	main.c
+SRC =	main.c	\
+		utils.c
 
 OBJ=$(SRC:%.c=$(OBJ_FOLDER)/%.o)
 ######################################
@@ -36,4 +37,4 @@ re: fclean all
 ######################################
 
 run: all
-	@./$(NAME) number diw eat sleep count
+	@./$(NAME) 1 800 200 200
