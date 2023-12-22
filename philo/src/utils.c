@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 21:43:57 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/20 11:23:45 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/22 10:35:06 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static unsigned long long	ft_convertion_error(int *flag)
 	return (0);
 }
 
-unsigned long long	ft_atull(char *str, int *flag)
+size_t	ft_atull(char *str, int *flag)
 {
-	size_t				index;
-	unsigned long long	count;
-	
+	size_t	index;
+	size_t	count;
+
 	count = 0;
 	index = 0;
 	*flag = 0;
