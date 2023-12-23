@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid>       +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:31:32 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/22 11:15:38 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/23 23:50:56 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-#include <limits.h>
 
 void	print_data(t_data *data)
 {
@@ -19,7 +18,7 @@ void	print_data(t_data *data)
 	printf("=> time_to_die: %zu\n", data->time_to_die);
 	printf("=> time_to_eat: %zu\n", data->time_to_eat);
 	printf("=> time_to_sleep: %zu\n", data->time_to_sleep);
-	printf("=> eat_count: %d (%s)\n", data->eat_count, data->eat_count == -1 ? "no" : "si");
+	printf("=> eat_count: %d (%s)\n", data->meals_needed, data->meals_needed == -1 ? "no" : "si");
 }
 
 int	print_help(char *execute)
@@ -43,34 +42,38 @@ void	wait_threads(t_data *data)
 	}
 }
 
-void	leaks()
+/*void	leaks()
 {
 	system("leaks -q philo");
-}
+}*/
 
 int	main(int argc, char *argv[])
 {
-	atexit(leaks);
-	t_data	data;
+	t_data	table;
 
 	if (argc != 5 && argc != 6)
 		return (print_help(argv[0]));
 
-	if (!read_arguments(argv, argc, &data))
+	/* Guaramos los arguentos en `table` e inicializamos todos los campos posibles */
+	if (init_data(&table, argc, argv))
 	{
-		printf("Error: invalida count/time\n");
+		print_help(argv[0]);
 		return (1);
 	}
-	if (!create_philo(&data))
-		return (printf("Out of memory\n"));
-	if (!create_mutex(&data) || !create_threads(&data))
+
+	/* Empezamos los hilos */
+	if (start_threads(&table, manage))
 	{
-		delete_philos(&data);
-		return (printf("Error creating the threads and/or mutex\n"));
+		delete_data(&table);
+		print_help(argv[0]);
+		return (1);
 	}
-	create_mutex(&data);
-	wait_threads(&data);
-	print_data(&data);
-	delete_philos(&data);
+
+	/* Esperamos que acaben todos los hilos */
+	wait_threads(&table);
+
+	/* Eliminamos toda la memoria */
+	delete_data(&table);
+
 	return (0);
 }
