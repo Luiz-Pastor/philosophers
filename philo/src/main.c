@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:31:32 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/23 23:50:56 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/23 23:58:02 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_data(t_data *data)
 	printf("=> eat_count: %d (%s)\n", data->meals_needed, data->meals_needed == -1 ? "no" : "si");
 }
 
-int	print_help(char *execute)
+static int	print_help(char *execute)
 {
 	printf("Incorrect usage. Example:\n%s <number of philosophers>", execute);
 	printf(" <time_to_die> <time_to_eat> <time_to_sleep>");
@@ -30,7 +30,7 @@ int	print_help(char *execute)
 	return (1);
 }
 
-void	wait_threads(t_data *data)
+static void	wait_threads(t_data *data)
 {
 	int	index;
 

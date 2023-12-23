@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:26:08 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/23 23:50:31 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/23 23:57:48 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	Inicializamos los mutex:
 		- Forks
 */
-int	create_mutex(t_data *data)
+static int	create_mutex(t_data *data)
 {
 	int	index;
 	
@@ -38,7 +38,7 @@ int	create_mutex(t_data *data)
 }
 
 /* Inicializa todos los datos del filosofo menos el hilo y los mutex */
-int	create_philo(t_data *data)
+static int	create_philo(t_data *data)
 {
 	int	index;
 
@@ -58,7 +58,8 @@ int	create_philo(t_data *data)
 	return (0);
 }
 
-void	assign_forks(t_data *data)
+/* TODO: pensar la táctica de selección de los tenedores para cada filosofo */
+static void	assign_forks(t_data *data)
 {
 	(void)data;
 	return ;
@@ -82,7 +83,6 @@ int	init_data(t_data *data, int argc, char **argv)
 		return (1);
 	}
 	
-	/* TODO: Asignamos los tenedores */
 	assign_forks(data);
 	return (0);
 }
