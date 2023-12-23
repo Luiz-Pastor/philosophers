@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:31:32 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/23 23:58:02 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/24 00:03:53 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ int	main(int argc, char *argv[])
 	{
 		print_help(argv[0]);
 		return (1);
+	}
+
+	if (table.meals_needed == 0)
+	{
+		delete_data(&table);
+		return (0);
 	}
 
 	/* Empezamos los hilos */

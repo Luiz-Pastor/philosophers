@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:09:16 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/23 23:47:16 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/24 00:05:14 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	read_arguments(t_data *data, int argc, char **argv)
 		return (0);
 	}
 	data->meals_needed = ft_strict_atoi(argv[5], &flag);
-	if (flag || data->meals_needed < 1)
+	if (flag || data->meals_needed < 0)
 		return (1);
 	return (0);
 }
