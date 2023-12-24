@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:32:13 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/24 11:49:58 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/24 13:31:48 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <stdio.h>		/* printf 			*/
+# include <stdio.h>		/* printf			*/
 # include <stdlib.h>	/* malloc, free		*/
-# include <string.h>	/* memset 			*/
-# include <unistd.h>	/* write, usleep 	*/
-# include <sys/time.h>	/* gettimeofday 	*/
-# include <pthread.h>	/* hilos 			*/
+# include <string.h>	/* memset			*/
+# include <unistd.h>	/* write, usleep	*/
+# include <sys/time.h>	/* gettimeofday		*/
+# include <pthread.h>	/* threads			*/
 
 /* NOTE: tiempos de argumentos en milisegundos
 	- 1 milisegundo = 1s		* 1000
@@ -30,6 +30,14 @@
 typedef struct s_data	t_data;
 typedef struct s_philo	t_philo;
 
+enum {
+	EATING,
+	SLEEPING,
+	THINKING,
+	FORK,
+	DIED
+};
+
 /* Estructura con la información general */
 struct s_data
 {
@@ -38,7 +46,7 @@ struct s_data
 	
 	/* Argumentos */
 	int			number_philo;	/* Numero de filósofos */
-	size_t		time_to_die;	/* Tiempo en morir */
+	size_t		time_to_die;	/* Tiempo que debe pasar sin comer para que muera un philo */
 	size_t		time_to_eat;	/* Tiempo en comer */
 	size_t		time_to_sleep;	/* Tiempo en dormir */
 	int			meals_needed;		/* Numero de comidas [opcional]*/
@@ -47,8 +55,12 @@ struct s_data
 	size_t		start;
 	size_t		start_time;
 
+	/* Dead flag, si alguien muere se actualiza */
+	int			end;
+
 	/* Declaracion de los mutex's */
-	pthread_mutex_t	mutex_start;
+	pthread_mutex_t	mutex_control;	/* Usado para saber cuando empezar y cuando terminar */
+	pthread_mutex_t	mutex_terminal;	/* Para escribir los mensajes del status */
 	pthread_mutex_t	*forks;			/* Array de los mutex de los tenedores */
 };
 
@@ -60,16 +72,14 @@ struct s_philo
 
 	/* Hilo del filosofo*/
 	pthread_t		thread;
-
-	/* Dead flag, si alguien muere se actualiza */
-	int				end;
 	
 	/* Información de tiempos */
 	t_data			*data;
 
 	/* Informacion de comidas */
 	int				meals_done;	/* Numero de comidas*/
-	size_t			last_meal; /* Checkear haze cuanto comio el filosofo, para saber si ha muerto o no*/
+	size_t			last_meal;	/* Checkear haze cuanto comio el filosofo, para saber si ha muerto o no*/
+	int				satisfied;	/* Ha hecho todas las comidas que tenia que hacer */
 
 	/* Mutex de los tenedores */
 	/*
@@ -105,5 +115,12 @@ size_t	get_instant();
 /* Sincronización */
 void	start(t_data *data);
 void	wait_start(t_data *data);
+int		is_finished(t_data *data);
+
+/* Output */
+void	print_status(t_philo *philo, int status);
+
+/* Actions */
+void	philo_sleep(t_philo *philo);
 
 #endif
