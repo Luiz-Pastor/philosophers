@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:26:08 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/24 12:00:20 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/24 13:14:19 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	create_mutex(t_data *data)
 		}
 		index++;
 	}
-	pthread_mutex_init(&data->mutex_start, NULL);
+	pthread_mutex_init(&data->mutex_control, NULL);
 	return (0);
 }
 
@@ -51,9 +51,9 @@ static int	create_philo(t_data *data)
 	{
 		data->philos[index].id = index + 1;
 		data->philos[index].data = data;
-		data->philos[index].end = 0;
 		data->philos[index].meals_done = 0;
 		data->philos[index].last_meal = 0;
+		data->philos[index].satisfied = 0;
 		index++;
 	}
 	return (0);
@@ -85,6 +85,7 @@ int	init_data(t_data *data, int argc, char **argv)
 	}
 
 	data->start = 0;
+	data->end = 0;
 	
 	assign_forks(data);
 	return (0);
