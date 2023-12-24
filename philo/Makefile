@@ -10,7 +10,8 @@ SRC =	main.c \
 		cleaner.c	\
 		my_time.c	\
 		utils.c		\
-		manage.c
+		manage.c	\
+		synchronization.c
 
 OBJ=$(SRC:%.c=$(OBJ_FOLDER)/%.o)
 ######################################
@@ -41,7 +42,7 @@ re: fclean all
 
 ######################################
 
-ARGS = 4 800 200 200
+ARGS = 4 800 200 200 5
 run: all
 	@./$(NAME) $(ARGS)
 
