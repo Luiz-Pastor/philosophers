@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:26:08 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/23 23:57:48 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/24 12:00:20 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	create_mutex(t_data *data)
 		}
 		index++;
 	}
+	pthread_mutex_init(&data->mutex_start, NULL);
 	return (0);
 }
 
@@ -82,17 +83,20 @@ int	init_data(t_data *data, int argc, char **argv)
 		delete_mutex(data);
 		return (1);
 	}
+
+	data->start = 0;
 	
 	assign_forks(data);
 	return (0);
 }
 
-int	start_threads(t_data *data, void*(*routine)(void*))
+int	start_threads(t_data *data, void *(*routine)(void*))
 {
 	int	index;
 	pthread_t	*thread;
 	t_philo		*philo;
 
+	/* Creamos los hilos */
 	index = 0;
 	while (index < data->number_philo)
 	{
@@ -102,5 +106,10 @@ int	start_threads(t_data *data, void*(*routine)(void*))
 			return (1);
 		index++;
 	}
+
+	/* Sincronizacion: los hilos esperan a que cambie el valor de `start`. Metemos 10ms de delay */
+	usleep(10000);
+	start(data);
+
 	return (0);
 }

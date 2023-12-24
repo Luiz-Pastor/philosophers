@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:32:13 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/23 23:47:23 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/24 11:49:58 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ struct s_data
 	int			meals_needed;		/* Numero de comidas [opcional]*/
 
 	/* Tiempo en el que empezo la somulacion */
+	size_t		start;
 	size_t		start_time;
 
 	/* Declaracion de los mutex's */
+	pthread_mutex_t	mutex_start;
 	pthread_mutex_t	*forks;			/* Array de los mutex de los tenedores */
 };
 
@@ -99,5 +101,9 @@ void	*manage(void *data);
 /* Time functions */
 size_t	diff_time(struct timeval start, struct timeval end);
 size_t	get_instant();
+
+/* Sincronización */
+void	start(t_data *data);
+void	wait_start(t_data *data);
 
 #endif
