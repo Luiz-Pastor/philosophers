@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:32:13 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/24 13:31:48 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/25 00:47:43 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ struct s_data
 {
 	/* Array de filosofos */
 	t_philo		*philos;			/* Ids de los hilos */
+	int			threads_active;
 	
 	/* Argumentos */
 	int			number_philo;	/* Numero de filósofos */
@@ -57,6 +58,9 @@ struct s_data
 
 	/* Dead flag, si alguien muere se actualiza */
 	int			end;
+
+	/* Monitor de la simulacion */
+	pthread_t	monitor;
 
 	/* Declaracion de los mutex's */
 	pthread_mutex_t	mutex_control;	/* Usado para saber cuando empezar y cuando terminar */
@@ -86,6 +90,7 @@ struct s_philo
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 	*/
+	pthread_mutex_t	internal_mutex;	/* Usado para hacer operaciones internas */
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
 };
@@ -99,28 +104,36 @@ int	read_arguments(t_data *data, int argc, char **argv);
 
 /* Start env */
 int	init_data(t_data *data, int argc, char **argv);
-int	start_threads(t_data *data, void*(*routine)(void*));
+int	start_threads(t_data *data, void *(*routine)(void*), void *(*one_philo)(void*), void *(*monitor)(void*));
 
 /* Free memory */
 void	delete_mutex(t_data *data);
 void	delete_data(t_data *data);
 
 /* Manage tasks */
+void	*one_philo(void *data);
 void	*manage(void *data);
 
 /* Time functions */
 size_t	diff_time(struct timeval start, struct timeval end);
 size_t	get_instant();
+void	usleep_better(size_t time);
 
 /* Sincronización */
 void	start(t_data *data);
 void	wait_start(t_data *data);
+void	wait_monitor(t_data *data);
 int		is_finished(t_data *data);
 
 /* Output */
 void	print_status(t_philo *philo, int status);
 
 /* Actions */
+void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo, int beginning);
+
+/* Monitor */
+void	*monitor(void *table);
 
 #endif
