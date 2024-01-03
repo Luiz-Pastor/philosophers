@@ -6,23 +6,40 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 11:34:23 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/24 12:25:38 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/26 11:27:02 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
+void	wait_monitor(t_data *data)
+{
+	while (1)
+	{
+		pthread_mutex_lock(&data->mutex_control);
+
+		if (data->threads_active == data->number_philo)
+		{
+			pthread_mutex_unlock(&data->mutex_control);
+			break ;
+		}
+		pthread_mutex_unlock(&data->mutex_control);
+	}
+}
+
 void	wait_start(t_data *data)
 {
-	int	start;
 	/* Bucle infinito hasta que `start` sea 1*/
 	while (1)
 	{
 		pthread_mutex_lock(&data->mutex_control);
-		start = data->start;
-		pthread_mutex_unlock(&data->mutex_control);
-		if (start)
+		if (data->start)
+		{
+			data->threads_active++;
+			pthread_mutex_unlock(&data->mutex_control);
 			break ;
+		}
+		pthread_mutex_unlock(&data->mutex_control);
 	}
 }
 
