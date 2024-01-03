@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:31:32 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/24 00:03:53 by lpastor-         ###   ########.fr       */
+/*   Updated: 2023/12/25 00:54:58 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ static void	wait_threads(t_data *data)
 		pthread_join(data->philos[index].thread, NULL);
 		index++;
 	}
+
+	/* Si todos se llenan, nadie muere y no se acaba el monitor */
+	pthread_mutex_lock(&data->mutex_control);
+	data->end = 1;
+	pthread_mutex_unlock(&data->mutex_control);
+
+	pthread_join(data->monitor, NULL);
+
 }
 
 /*void	leaks()
@@ -68,7 +76,7 @@ int	main(int argc, char *argv[])
 	}
 
 	/* Empezamos los hilos */
-	if (start_threads(&table, manage))
+	if (start_threads(&table, manage, one_philo, monitor))
 	{
 		delete_data(&table);
 		print_help(argv[0]);
