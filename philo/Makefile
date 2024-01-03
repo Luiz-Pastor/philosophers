@@ -11,12 +11,28 @@ SRC =	main.c \
 		my_time.c	\
 		utils.c		\
 		manage.c	\
-		synchronization.c
+		synchronization.c	\
+		print_status.c	\
+		action_sleep.c
+
+SRC =	action_eat.c		\
+		action_sleep.c		\
+		action_thinking.c	\
+		arguments.c			\
+		cleaner.c			\
+		main.c				\
+		manage.c			\
+		monitor.c			\
+		my_time.c			\
+		print_status.c		\
+		set_env.c			\
+		synchronization.c	\
+		utils.c				
 
 OBJ=$(SRC:%.c=$(OBJ_FOLDER)/%.o)
 ######################################
 CC := cc
-CFLAGS := -Wall -Werror -Wextra
+CFLAGS := -Wall -Werror -Wextra -g3
 ######################################
 
 all: $(NAME)
@@ -48,3 +64,6 @@ run: all
 
 valgrind: all
 	@valgrind --leak-check=full ./$(NAME) $(ARGS)
+
+case1: all
+	@./$(NAME) 1 800 200 200
