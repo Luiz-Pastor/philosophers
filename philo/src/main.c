@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:31:32 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/25 00:54:58 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/21 10:49:53 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static void	wait_threads(t_data *data)
 	data->end = 1;
 	pthread_mutex_unlock(&data->mutex_control);
 
-	pthread_join(data->monitor, NULL);
-
+	/*pthread_join(data->monitor, NULL);*/
 }
 
 /*void	leaks()
@@ -76,7 +75,7 @@ int	main(int argc, char *argv[])
 	}
 
 	/* Empezamos los hilos */
-	if (start_threads(&table, manage, one_philo, monitor))
+	if (start_threads(&table, philo_routine, one_philo, monitor))
 	{
 		delete_data(&table);
 		print_help(argv[0]);

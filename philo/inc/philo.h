@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:32:13 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/25 00:47:43 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:31:21 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ struct s_philo
 
 	/* Hilo del filosofo*/
 	pthread_t		thread;
+
+	/* Dead */
+	int				dead;
 	
 	/* Información de tiempos */
 	t_data			*data;
@@ -112,7 +115,8 @@ void	delete_data(t_data *data);
 
 /* Manage tasks */
 void	*one_philo(void *data);
-void	*manage(void *data);
+void	*philo_routine(void *arg);
+/*void	*manage(void *data);*/
 
 /* Time functions */
 size_t	diff_time(struct timeval start, struct timeval end);

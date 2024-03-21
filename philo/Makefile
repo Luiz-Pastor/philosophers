@@ -4,30 +4,28 @@ NAME = philo
 SRC_FOLDER = src
 OBJ_FOLDER = obj
 
-SRC =	main.c \
-		arguments.c \
-		set_env.c	\
-		cleaner.c	\
-		my_time.c	\
-		utils.c		\
-		manage.c	\
-		synchronization.c	\
-		print_status.c	\
-		action_sleep.c
+# SRC =	action_eat.c		\
+# 		action_sleep.c		\
+# 		action_thinking.c	\
+# 		arguments.c			\
+# 		cleaner.c			\
+# 		main.c				\
+# 		manage.c			\
+# 		monitor.c			\
+# 		my_time.c			\
+# 		print_status.c		\
+# 		set_env.c			\
+# 		synchronization.c	\
+# 		utils.c				
 
-SRC =	action_eat.c		\
-		action_sleep.c		\
-		action_thinking.c	\
+SRC =	main.c				\
 		arguments.c			\
 		cleaner.c			\
-		main.c				\
-		manage.c			\
-		monitor.c			\
 		my_time.c			\
-		print_status.c		\
+		philo_routine.c		\
 		set_env.c			\
 		synchronization.c	\
-		utils.c				
+		utils.c
 
 OBJ=$(SRC:%.c=$(OBJ_FOLDER)/%.o)
 ######################################
