@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 08:04:40 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/21 12:34:02 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/21 23:54:48 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,6 @@
 	return NULL;
 }*/
 
-int is_finished(t_philo *philo)
-{
-	int state;
-	
-	/* Mirar si la flag en data de end está levantada */
-	pthread_mutex_lock(&philo->data->mutex_control);
-	state = philo->data->end;
-	pthread_mutex_unlock(&philo->data->mutex_control);
-
-	if (state)
-		return (1);
-
-	/*  Mirar si el propio filosofo ya está muerto --> tiempos */
-	if (get_instant() - philo->last_meal > philo->data->time_to_die)
-	{
-		/* TODO: Notificar muerte del filosofo */
-		pthread_mutex_lock(&philo->internal_mutex);
-		philo->dead = 1;
-		pthread_mutex_unlock(&philo->internal_mutex);
-		return (1);
-	}
-
-	/* No ha muerto ningun filosofo */
-	retrun (0);
-}
-
-
 void *one_philo(void *data) {(void)data; return NULL;}
 
 void	*philo_routine(void *arg)
@@ -85,8 +58,23 @@ void	*philo_routine(void *arg)
 	while (!is_finished(philo))
 	{
 		/* TODO: Comer */
-		/* TODO: Dormir --> usleep_better */
+		if (eat_action(philo))
+		{
+			/* Ha muerto o ha terminado la ejecucion */
+			break ;
+		}
+		
+		/* Dormir */
+		if (is_finished(philo))
+			break ;
+
+		usleep_better(philo->data->time_to_sleep);
+
+		if (is_finished(philo))
+			break ;
+
 		/* Pensar */
+		think_action(philo);
 	}
 
 	return NULL;
