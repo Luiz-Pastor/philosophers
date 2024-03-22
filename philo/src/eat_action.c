@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eat_action.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:22:02 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/21 23:46:59 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:39:22 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,29 @@ static void	unlock_forks(pthread_mutex_t *first, pthread_mutex_t *second)
 
 int	eat_action(t_philo *philo)
 {
-	t_dead	dead;
-
 	/* Coger priemr tenerdor*/	
 	pthread_mutex_lock(philo->first_fork);
 	print_action(philo, FORK);
 
+	if (is_finished(philo))
+		return (1);
+
 	/* Coger segundo tenedor */
 	pthread_mutex_lock(philo->second_fork);
 	print_action(philo, FORK);
+
+	if (is_finished(philo))
+		return (1);
 
 	/* Comer --> esperar*/
 	print_action(philo, EATING);
 	usleep_better(philo->data->time_to_eat);
 
 	/* Antes de acabar de comer, miramos si esta muerto */
-	dead = check_self_dead(philo);
-	if (dead)
+	if (check_self_dead(philo))
 	{
 		/* Desbloqueamos tenedores*/
 		unlock_forks(philo->first_fork, philo->second_fork);
-
-		/* Miramos su hemos muerto nosotros, para imprimir mensaje */
-		if (dead == SELF_DEAD)
-			print_action(philo, DIED);
-
 		return (1);
 	}
 

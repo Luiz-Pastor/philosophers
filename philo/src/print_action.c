@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:23:28 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/21 23:28:52 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/22 09:24:00 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	print_action(t_philo *philo, t_action action)
 	actual_time = get_instant() - philo->data->start_time;
 
 	pthread_mutex_lock(&philo->data->mutex_terminal);
-	if (action == EATING && !is_finished(philo->data))
+	if (action == EATING && !is_finished(philo))
 		printf("%ld %d is eating\n", actual_time, philo->id);
-	else if (action == SLEEPING && !is_finished(philo->data))
+	else if (action == SLEEPING && !is_finished(philo))
 		printf("%ld %d is sleeping\n", actual_time, philo->id);
-	else if (action == THINKING && !is_finished(philo->data))
+	else if (action == THINKING && !is_finished(philo))
 		printf("%ld %d is thinking\n", actual_time, philo->id);
-	else if (action == FORK && !is_finished(philo->data))
+	else if (action == FORK && !is_finished(philo))
 		printf("%ld %d has taken a fork\n", actual_time, philo->id);
 	else /* DEAD*/
 		printf("%ld %d is dead\n", actual_time, philo->id);

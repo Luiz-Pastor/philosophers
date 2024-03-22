@@ -18,13 +18,18 @@ OBJ_FOLDER = obj
 # 		synchronization.c	\
 # 		utils.c				
 
-SRC =	main.c				\
-		arguments.c			\
+SRC =	arguments.c			\
 		cleaner.c			\
+		eat_action.c		\
+		is_finished.c		\
+		main.c				\
+		monitor_routine.c	\
 		my_time.c			\
 		philo_routine.c		\
+		print_action.c		\
 		set_env.c			\
 		synchronization.c	\
+		think_action.c		\
 		utils.c
 
 OBJ=$(SRC:%.c=$(OBJ_FOLDER)/%.o)
@@ -57,6 +62,7 @@ re: fclean all
 ######################################
 
 ARGS = 4 800 200 200 5
+r: run
 run: all
 	@./$(NAME) $(ARGS)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 08:04:40 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/21 23:54:48 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:34:26 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	*philo_routine(void *arg)
 
 	/* Hacemos que los pares se retrasen un poco */
 	/* TODO: mirar el retrasar a los pares x tiempo */
-	usleep_better(philo->id * 1000);
+	if (philo->id % 2)
+		usleep_better(100);
 
 	while (!is_finished(philo))
 	{
@@ -68,6 +69,7 @@ void	*philo_routine(void *arg)
 		if (is_finished(philo))
 			break ;
 
+		print_status(philo, SLEEPING);
 		usleep_better(philo->data->time_to_sleep);
 
 		if (is_finished(philo))

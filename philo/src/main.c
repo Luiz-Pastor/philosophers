@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:31:32 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/21 10:49:53 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/22 09:24:10 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int argc, char *argv[])
 	}
 
 	/* Empezamos los hilos */
-	if (start_threads(&table, philo_routine, one_philo, monitor))
+	if (start_threads(&table, philo_routine, one_philo, monitor_routine))
 	{
 		delete_data(&table);
 		print_help(argv[0]);

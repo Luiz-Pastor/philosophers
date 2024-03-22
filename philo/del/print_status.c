@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:51:36 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/25 14:04:38 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/22 09:23:16 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	print_status(t_philo *philo, int status)
 
 	pthread_mutex_lock(&philo->data->mutex_terminal);	
 
-	if (status == EATING && !is_finished(philo->data))
+	if (status == EATING && !is_finished(philo))
 		printf("%ld %d is eating\n", actual_time, philo->id);
-	else if (status == SLEEPING && !is_finished(philo->data))
+	else if (status == SLEEPING && !is_finished(philo))
 		printf("%ld %d is sleeping\n", actual_time, philo->id);
-	else if (status == THINKING && !is_finished(philo->data))
+	else if (status == THINKING && !is_finished(philo))
 		printf("%ld %d is thinking\n", actual_time, philo->id);
-	else if (status == FORK && !is_finished(philo->data))
+	else if (status == FORK && !is_finished(philo))
 		printf("%ld %d has taken a fork\n", actual_time, philo->id);
 	else /* DEAD*/
 		printf("%ld %d is dead\n", actual_time, philo->id);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:32:13 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/21 23:53:48 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/22 09:25:43 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef enum {
 } t_action;
 
 typedef enum {
-	NO_DEAD,
+	NO_DEAD = 0,
 	SELF_DEAD,
 	ANOTHER_DEAD
 } t_dead;
@@ -124,7 +124,7 @@ void	delete_data(t_data *data);
 /* Manage tasks */
 void	*one_philo(void *data);
 void	*philo_routine(void *arg);
-/*void	*manage(void *data);*/
+void	*monitor_routine(void *arg);
 
 /* Time functions */
 size_t	diff_time(struct timeval start, struct timeval end);
@@ -135,23 +135,21 @@ void	usleep_better(size_t time);
 void	start(t_data *data);
 void	wait_start(t_data *data);
 void	wait_monitor(t_data *data);
-//int		is_finished(t_data *data);
+
+/* Check end simulation */
 t_dead is_finished(t_philo *philo);
 t_dead	check_self_dead(t_philo *philo);
+//int		is_finished(t_data *data);
 
 /* Output */
-//void	print_status(t_philo *philo, int status);
 void	print_action(t_philo *philo, t_action action);
+//void	print_status(t_philo *philo, int status);
 
 /* Actions */
+int	eat_action(t_philo *philo);
+void	think_action(t_philo *philo);
 //void	philo_eat(t_philo *philo);
 //void	philo_sleep(t_philo *philo);
 //void	philo_think(t_philo *philo, int beginning);
-
-int	eat_action(t_philo *philo);
-int	think_action(t_philo *philo);
-
-/* Monitor */
-void	*monitor(void *table);
 
 #endif

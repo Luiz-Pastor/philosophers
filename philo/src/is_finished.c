@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_finished.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:29:41 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/21 23:44:41 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:40:08 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@ t_dead	check_self_dead(t_philo *philo)
 {
 	if (get_instant() - philo->last_meal > philo->data->time_to_die)
 	{
-		/* TODO: Notificar muerte del filosofo */
-		pthread_mutex_lock(&philo->internal_mutex);
+		/* Cambiamos valor a 1 */
+		pthread_mutex_lock(&philo->internal_mutex);	
 		philo->dead = 1;
 		pthread_mutex_unlock(&philo->internal_mutex);
+
+		/* Notificamos muerte */
+		print_action(philo, DIED);
+
 		return (SELF_DEAD);
 	}
 	return (NO_DEAD);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   think_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:52:53 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/21 23:53:30 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/03/22 09:25:36 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	think_action(t_philo *philo)
+void	think_action(t_philo *philo)
 {
 	print_action(philo, THINKING);
 }

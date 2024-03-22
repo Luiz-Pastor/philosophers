@@ -1,0 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor_routine.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/22 08:56:52 by lpastor-          #+#    #+#             */
+/*   Updated: 2024/03/22 09:07:50 by lpastor-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/philo.h"
+
+static void	set_finish(t_data *data)
+{
+	pthread_mutex_lock(&data->mutex_control);
+	data->end = 1;
+	pthread_mutex_unlock(&data->mutex_control);
+}
+
+void	*monitor_routine(void *arg)
+{
+	t_data	*data;
+	int		index;
+	int		end;
+	int		dead;
+
+	end = 1;
+	data = (t_data *)arg;
+	while (end)
+	{
+		index = 0;
+		while (end && index < data->number_philo)
+		{
+			pthread_mutex_lock(&data->philos[index].internal_mutex);
+			dead = data->philos[index].dead;
+			pthread_mutex_unlock(&data->philos[index].internal_mutex);
+			if (dead)
+			{
+				set_finish(data);
+				end = 0;
+			}
+			index++;
+		}
+	}
+	return (NULL);	
+}
