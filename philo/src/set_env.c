@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:26:08 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/21 11:01:58 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/10 11:26:45 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	assign_forks(t_data *data)
 		}*/
 
 		data->philos[index].first_fork = &data->forks[index];
-		data->philos[index].first_fork = &data->forks[(index + 1) % data->number_philo];
+		data->philos[index].second_fork = &data->forks[(index + 1) % data->number_philo];
 
 		index++;
 	}
