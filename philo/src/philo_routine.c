@@ -6,14 +6,13 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 08:04:40 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/22 11:34:26 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/10 11:22:15 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-/* FIXME: faltan funciones borradas */
-/*void	*one_philo(void *data)
+void	*one_philo(void *data)
 {
 	t_philo	*philo;
 
@@ -28,13 +27,12 @@
 	pthread_mutex_unlock(&philo->internal_mutex);
 
 	// Lo unico que puede hacer el filosofo es coger un tenerdor y pensar hasta que muera
-	print_status(philo, FORK);
-	while (!is_finished(philo->data))
+	print_action(philo, FORK);
+	while (!is_finished(philo))
 		usleep(200);
 	return NULL;
-}*/
+}
 
-void *one_philo(void *data) {(void)data; return NULL;}
 
 void	*philo_routine(void *arg)
 {
@@ -54,11 +52,11 @@ void	*philo_routine(void *arg)
 	/* Hacemos que los pares se retrasen un poco */
 	/* TODO: mirar el retrasar a los pares x tiempo */
 	if (philo->id % 2)
-		usleep_better(100);
+		usleep_better(/*philo->data->time_to_eat / 2*/ 60);
 
 	while (!is_finished(philo))
 	{
-		/* TODO: Comer */
+		/* Comer */
 		if (eat_action(philo))
 		{
 			/* Ha muerto o ha terminado la ejecucion */
@@ -69,7 +67,7 @@ void	*philo_routine(void *arg)
 		if (is_finished(philo))
 			break ;
 
-		print_status(philo, SLEEPING);
+		print_action(philo, SLEEPING);
 		usleep_better(philo->data->time_to_sleep);
 
 		if (is_finished(philo))
