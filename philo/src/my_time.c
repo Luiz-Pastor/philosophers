@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_time.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 18:47:13 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/23 23:48:16 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/10 11:16:51 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ size_t	diff_time(struct timeval start, struct timeval end)
 
 	return end_time - start_time;
 }
-
 
 size_t	get_instant()
 {
