@@ -1,2 +1,9 @@
-philo/obj
+# VSCode folder
+.DS_Store
+.vscode
+
+# Compilation objects
+obj/
+
+# Executables
 philo/philo
