@@ -61,10 +61,11 @@ re: fclean all
 
 ######################################
 
-ARGS = 4 800 200 200 5
-r: run
-run: all
-	@./$(NAME) $(ARGS)
+die: all
+	@./$(NAME) 4 310 200 100
+
+no_die: all
+	@./$(NAME) 5 800 200 200
 
 valgrind: all
 	@valgrind --leak-check=full ./$(NAME) $(ARGS)
