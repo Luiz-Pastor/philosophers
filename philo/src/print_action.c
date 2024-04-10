@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:23:28 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/22 09:24:00 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/10 11:15:58 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_action(t_philo *philo, t_action action)
 		printf("%ld %d is thinking\n", actual_time, philo->id);
 	else if (action == FORK && !is_finished(philo))
 		printf("%ld %d has taken a fork\n", actual_time, philo->id);
-	else /* DEAD*/
+	else
 		printf("%ld %d is dead\n", actual_time, philo->id);
 	pthread_mutex_unlock(&philo->data->mutex_terminal);
 }
