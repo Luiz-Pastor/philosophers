@@ -61,14 +61,14 @@ re: fclean all
 
 ######################################
 
-die: all
-	@./$(NAME) 4 310 200 100
-
-no_die: all
+case1:
 	@./$(NAME) 5 800 200 200
 
-valgrind: all
-	@valgrind --leak-check=full ./$(NAME) $(ARGS)
+case2:
+	@./$(NAME) 5 800 200 200 7
 
-case1: all
-	@./$(NAME) 1 800 200 200
+case3:
+	@./$(NAME) 4 410 200 200
+
+case4:
+	@./$(NAME) 3 310 200 100
