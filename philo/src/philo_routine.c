@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 08:04:40 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/04/10 11:22:15 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/12 09:05:17 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	*philo_routine(void *arg)
 	/* Hacemos que los pares se retrasen un poco */
 	/* TODO: mirar el retrasar a los pares x tiempo */
 	if (philo->id % 2)
-		usleep_better(/*philo->data->time_to_eat / 2*/ 60);
+		usleep_better(philo->data->time_to_eat);
 
 	while (!is_finished(philo))
 	{
@@ -64,7 +64,7 @@ void	*philo_routine(void *arg)
 		}
 		
 		/* Dormir */
-		if (is_finished(philo))
+		if (is_satisfied(philo) || is_finished(philo))
 			break ;
 
 		print_action(philo, SLEEPING);
