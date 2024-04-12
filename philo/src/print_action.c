@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:23:28 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/04/10 11:15:58 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/12 10:08:21 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	print_action(t_philo *philo, t_action action)
 	size_t	actual_time;
 
 	actual_time = get_instant() - philo->data->start_time;
-
 	pthread_mutex_lock(&philo->data->mutex_terminal);
 	if (action == EATING && !is_finished(philo))
 		printf("%ld %d is eating\n", actual_time, philo->id);

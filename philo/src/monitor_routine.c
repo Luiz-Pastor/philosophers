@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 08:56:52 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/04/12 09:46:44 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/12 10:00:44 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,24 @@ static void	set_finish(t_data *data)
 static int	all_satisfied(int count, t_data *data)
 {
 	if (data->meals_needed == -1)
-		return 0;
-	
+		return (0);
 	if (count == data->number_philo)
 	{
 		set_finish(data);
-		return 1;
+		return (1);
 	}
-
-	return 0;
+	return (0);
 }
 
 static int	is_anyone_dead(t_data *data, int index)
 {
-	int dead;
-	
+	int	dead;
+
 	pthread_mutex_lock(&data->philos[index].internal_mutex);
 	dead = data->philos[index].dead;
 	pthread_mutex_unlock(&data->philos[index].internal_mutex);
-
-	return dead;
+	return (dead);
 }
-
-
 
 void	*monitor_routine(void *arg)
 {
@@ -72,5 +67,5 @@ void	*monitor_routine(void *arg)
 		if (all_satisfied(satisfied, data))
 			break ;
 	}
-	return (NULL);	
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:32:13 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/04/12 09:30:00 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/12 10:10:59 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	read_arguments(t_data *data, int argc, char **argv);
 
 /* Start env */
 int	init_data(t_data *data, int argc, char **argv);
-int	start_threads(t_data *data, void *(*routine)(void*), void *(*one_philo)(void*), void *(*monitor)(void*));
+int	start_threads(t_data *data, void *(*routine)(void*));
 
 /* Free memory */
 void	delete_mutex(t_data *data);
@@ -128,7 +128,7 @@ void	*monitor_routine(void *arg);
 
 /* Time functions */
 size_t	diff_time(struct timeval start, struct timeval end);
-size_t	get_instant();
+size_t	get_instant(void);
 void	usleep_better(size_t time);
 
 /* Sincronización */

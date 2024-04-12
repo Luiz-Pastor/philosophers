@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpastor- <lpastor-@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:32:11 by lpastor-          #+#    #+#             */
-/*   Updated: 2023/12/23 23:48:07 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/12 09:54:13 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
-/*
-Memoria a elimiar:
-	- Eliminar tabla de mutex
-		· Eliminar cada mutex
-	- Eliminar tabla de filosofos
-*/
 
 void	delete_mutex(t_data *data)
 {
@@ -34,9 +27,6 @@ void	delete_mutex(t_data *data)
 
 void	delete_data(t_data *data)
 {
-	/* Eliminamos la tabla de filosofos */
 	free(data->philos);
-
-	/* Eliminamos la tabla de mutex */
 	delete_mutex(data);
 }

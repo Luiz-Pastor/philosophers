@@ -6,20 +6,16 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:26:08 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/04/10 11:29:45 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/12 10:11:41 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-/*
-	Inicializamos los mutex:
-		- Forks
-*/
 static int	create_mutex(t_data *data)
 {
 	int	index;
-	
+
 	index = 0;
 	data->forks = malloc(data->number_philo * sizeof(pthread_mutex_t));
 	if (!data->forks)
@@ -39,7 +35,6 @@ static int	create_mutex(t_data *data)
 	return (0);
 }
 
-/* Inicializa todos los datos del filosofo menos el hilo y los mutex */
 static int	create_philo(t_data *data)
 {
 	int	index;
@@ -67,68 +62,44 @@ static int	create_philo(t_data *data)
 static void	assign_forks(t_data *data)
 {
 	int	index;
+	int	count;
 
 	index = 0;
 	while (index < data->number_philo)
 	{
-		/*if (data->philos[index].id % 2 == 0)
-		{
-			data->philos[index].first_fork = &data->forks[index];
-			data->philos[index].second_fork = &data->forks[(index + 1) % data->number_philo];
-		}
-		else
-		{
-			data->philos[index].first_fork = &data->forks[(index + 1) % data->number_philo];	
-			data->philos[index].second_fork = &data->forks[index];
-		}*/
-
+		count = (index + 1) % data->number_philo;
 		data->philos[index].first_fork = &data->forks[index];
-		data->philos[index].second_fork = &data->forks[(index + 1) % data->number_philo];
-
+		data->philos[index].second_fork = &data->forks[count];
 		index++;
 	}
-
-	
 	return ;
 }
 
-/* Inicializamos toda la información */
 int	init_data(t_data *data, int argc, char **argv)
 {
-	/* Guardamos los argumentos */
 	if (read_arguments(data, argc, argv))
 		return (1);
-	
-	/* Creamos mutex */
 	if (create_mutex(data))
 		return (1);
-
-	/* Creamos los filosofos, con sus datos */
 	if (create_philo(data))
 	{
 		delete_mutex(data);
 		return (1);
 	}
-
 	data->start = 0;
 	data->end = 0;
-	
 	assign_forks(data);
 	return (0);
 }
 
-int	start_threads(t_data *data, void *(*routine)(void*), void *(*one_philo)(void*), void *(*monitor)(void*))
+int	start_threads(t_data *data, void *(*routine)(void*))
 {
-	int	index;
+	int			index;
 	pthread_t	*thread;
 	t_philo		*philo;
 
-	/* No hay hilos iniciados */
 	data->threads_active = 0;
-
-	/* Creamos los hilos */
 	index = 0;
-
 	while (index < data->number_philo)
 	{
 		thread = &data->philos[index].thread;
@@ -136,7 +107,7 @@ int	start_threads(t_data *data, void *(*routine)(void*), void *(*one_philo)(void
 		if (data->number_philo == 1)
 		{
 			if (pthread_create(thread, NULL, one_philo, philo))
-				return (1);	
+				return (1);
 		}
 		else
 		{
@@ -145,10 +116,7 @@ int	start_threads(t_data *data, void *(*routine)(void*), void *(*one_philo)(void
 		}
 		index++;
 	}
-	pthread_create(&data->monitor, NULL, monitor, data);
-
-	/* Sincronizacion: los hilos esperan a que cambie el valor de `start` */
+	pthread_create(&data->monitor, NULL, monitor_routine, data);
 	start(data);
-
 	return (0);
 }
