@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:32:13 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/03/22 09:25:43 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/12 09:30:00 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void	print_action(t_philo *philo, t_action action);
 
 /* Actions */
 int	eat_action(t_philo *philo);
+int is_satisfied(t_philo *philo);
 void	think_action(t_philo *philo);
 //void	philo_eat(t_philo *philo);
 //void	philo_sleep(t_philo *philo);

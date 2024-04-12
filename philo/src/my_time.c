@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 18:47:13 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/04/10 11:16:51 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/12 08:48:37 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void	usleep_better(size_t time)
 	begin = get_instant();
 
 	while (get_instant() - begin < time)
-		usleep(250);
+		usleep(200);
 }

@@ -6,7 +6,7 @@
 /*   By: lpastor- <lpastor-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 10:26:08 by lpastor-          #+#    #+#             */
-/*   Updated: 2024/04/10 11:26:45 by lpastor-         ###   ########.fr       */
+/*   Updated: 2024/04/10 11:29:45 by lpastor-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ int	init_data(t_data *data, int argc, char **argv)
 
 int	start_threads(t_data *data, void *(*routine)(void*), void *(*one_philo)(void*), void *(*monitor)(void*))
 {
-	(void)monitor;
 	int	index;
 	pthread_t	*thread;
 	t_philo		*philo;
@@ -146,7 +145,7 @@ int	start_threads(t_data *data, void *(*routine)(void*), void *(*one_philo)(void
 		}
 		index++;
 	}
-	/*pthread_create(&data->monitor, NULL, monitor, data);*/
+	pthread_create(&data->monitor, NULL, monitor, data);
 
 	/* Sincronizacion: los hilos esperan a que cambie el valor de `start` */
 	start(data);
